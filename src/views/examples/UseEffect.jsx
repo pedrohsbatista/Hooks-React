@@ -14,6 +14,10 @@ function calcFatorial(num) {
     return calcFatorial(n - 1) * n
 }
 
+function isParOrImpar(n){
+    return n % 2 === 0;
+}
+
 const UseEffect = (props) => {
     const [number, setNumber] = useState(1);
     const [fatorial, setFatorial] = useState(1);
@@ -27,6 +31,13 @@ const UseEffect = (props) => {
             document.title = "Teste";
         }
     }, [fatorial])
+
+    const [number2, setNumber2] = useState(0);
+    const [isPar, setIsPar] = useState(true);
+
+    useEffect(function() {
+        setIsPar(isParOrImpar(number2));
+    }, [number2])
 
     return (
         <div className="UseEffect">
@@ -46,7 +57,11 @@ const UseEffect = (props) => {
 
             <SectionTitle title="Exercicío #02"/>       
             <div className="center">
-
+                <div>
+                    <span className="text">Status:</span>
+                    <span className="text red">{isPar ? "Par" : "Ímpar"}</span>
+                </div>
+                <input type="number" className="input" value={number2} onChange={e => setNumber2(e.target.value)} />
             </div>
         </div>
     )
