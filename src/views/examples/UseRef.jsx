@@ -2,17 +2,45 @@ import React, { useEffect, useRef, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
+const merge = function(value1, value2){
+
+    let length = value1.length + value2.length
+    let word = "";
+    for(var i = 0; i < length; i++)
+    {        
+        if (i % 2 == 0){        
+            word += value1.charAt(0)
+            value1 = value1.substring(1);            
+        }            
+        else {
+            word += value2.charAt(0)
+            value2 = value2.substring(1);
+        }           
+    }
+
+   return word;
+}
+
 const UseRef = (props) => {
-    const [value1, setValue1] = useState("");    
+    const [value1, setValue1] = useState("");  
+    const [value2, setValue2] = useState("");
     const count = useRef(0)
+    const myInput1 = useRef(null)
+    const myInput2 = useRef(null)    
 
     // Controlar quantidade de alterações quando uma coisa especifica for mudada
     useEffect(function() {
         count.current += 1;
+        myInput2.current.focus()        
     }, [value1])
 
+    useEffect(function() {
+        count.current += 1;
+        myInput1.current.focus()
+    }, [value2])
+
     // Controlar quantidade de alteções em todas renderizações
-    //count.current += 1;
+    //count.current += 1;    
 
     return (
         <div className="UseRef">
@@ -25,11 +53,16 @@ const UseRef = (props) => {
             <div className="center">
                 <div>
                     <span className="text">Valor: </span>
-                    <span className="text">{value1} [</span>
+                    <span className="text">{merge(value1, value2)}[</span>
                     <span className="text red">{count.current}</span>
                     <span className="text">]</span>
                 </div>                
-                <input type="text" className="input" value={value1} onChange={e => setValue1(e.target.value)}/>
+                <input type="text" className="input" ref={myInput1} value={value1} onChange={e => setValue1(e.target.value)}/>
+            </div>
+
+            <SectionTitle title="Exercício #02" />
+            <div className="center">
+                <input type="text" className="input" ref={myInput2} value={value2} onChange={e => setValue2(e.target.value)} />
             </div>
         </div>
     )
