@@ -4,18 +4,12 @@ import SectionTitle from '../../components/layout/SectionTitle'
 
 const merge = function(value1, value2){
 
-    let length = value1.length + value2.length
+    let length = value1.length > value2.length ? value1.length : value2.length
     let word = "";
     for(var i = 0; i < length; i++)
-    {        
-        if (i % 2 == 0){        
-            word += value1.charAt(0)
-            value1 = value1.substring(1);            
-        }            
-        else {
-            word += value2.charAt(0)
-            value2 = value2.substring(1);
-        }           
+    {            
+        word += value1[i] || ''
+        word += value2[i] || ''
     }
 
    return word;
