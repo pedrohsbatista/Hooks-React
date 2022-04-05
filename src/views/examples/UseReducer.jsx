@@ -10,14 +10,13 @@ const initialState = {
     numberToAdd: 0, 
 }
 
-function numberToAdd(n){
-    var result = parseInt(n)
+function numberToAdd(n){  
+    var result = parseInt(n)    
     return Number.isNaN(result) ? 0 : result
  }
 
 //adicionar n
-function reducer(state, action) {
-    console.log(state);
+function reducer(state, action) {    
     switch(action.type) {
         case 'numberAdd2': return {...state, number: state.number + 2}
         case 'login': return {...state, user: { name: action.payload }}
@@ -54,7 +53,7 @@ const UseReducer = (props) => {
                     <button className="btn" onClick={() => dispatch({type: 'multiplyBy7'})}>*7</button>
                     <button className="btn" onClick={() => dispatch({type: 'divideBy25'})}>/25</button>
                     <button className="btn" onClick={() => dispatch({type: 'roundNumber'})}>Arredondar</button>
-                    <input type="text" className="input" value={state.numberToAdd} onChange={e => dispatch({type: 'setNumberToAdd', payload: e.target.value})}/>
+                    <input type="number" className="input" value={state.numberToAdd} onChange={e => dispatch({type: 'setNumberToAdd', payload: e.target.value})}/>
                     <button className="btn" onClick={() => dispatch({type: 'sum'})}>Sum</button>
                 </div>                
             </div>
