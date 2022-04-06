@@ -1,33 +1,7 @@
 import React, { useReducer } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
-
-const initialState = {
-    cart: [],
-    products: [],
-    user: null,
-    // foco...
-    number: 0,
-    numberToAdd: 0, 
-}
-
-function numberToAdd(n){  
-    var result = parseInt(n)    
-    return Number.isNaN(result) ? 0 : result
- }
-
-//adicionar n
-function reducer(state, action) {    
-    switch(action.type) {
-        case 'numberAdd2': return {...state, number: state.number + 2}
-        case 'login': return {...state, user: { name: action.payload }}
-        case 'multiplyBy7': return {...state, number: state.number * 7}
-        case 'divideBy25': return {...state, number: state.number / 25}
-        case 'roundNumber': return {...state, number: parseInt(state.number) }
-        case 'setNumberToAdd': return {...state, numberToAdd: numberToAdd(action.payload)}
-        case 'sum': return {...state, number: state.number + state.numberToAdd}        
-        default: return state
-    }
-}
+import { initialState, reducer } from '../../store'
+import { numberAdd2, login } from '../../store/actions'
 
 const UseReducer = (props) => {
 
@@ -48,8 +22,8 @@ const UseReducer = (props) => {
                 
                 <span className="text">{state.number}</span>                
                 <div>
-                    <button className="btn" onClick={() => dispatch({type: 'numberAdd2'})}>+2</button>
-                    <button className="btn" onClick={() => dispatch({type: 'login', payload: 'Pedro'})}>Login</button>
+                    <button className="btn" onClick={() => numberAdd2(dispatch)}>+2</button>
+                    <button className="btn" onClick={() => login(dispatch, 'Pedro')}>Login</button>
                     <button className="btn" onClick={() => dispatch({type: 'multiplyBy7'})}>*7</button>
                     <button className="btn" onClick={() => dispatch({type: 'divideBy25'})}>/25</button>
                     <button className="btn" onClick={() => dispatch({type: 'roundNumber'})}>Arredondar</button>
